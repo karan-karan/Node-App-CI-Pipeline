@@ -5,7 +5,7 @@ This is a simple Node.js application that serves a web page indicating that the 
 ## Project Structure
 
 ```
-my-node-app
+my-node-app 
 ├── public
 │   └── index.html       # HTML file served by the application
 ├── src
