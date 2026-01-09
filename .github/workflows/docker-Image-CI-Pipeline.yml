@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/Node-CiPipeline-Image:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node-cipipeline-image:latest
