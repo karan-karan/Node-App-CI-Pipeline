@@ -1,4 +1,4 @@
-From node:18-alpine #Use the official Node.js 18 image based on Alpine Linux for a lightweight container
+FROM node:18-alpine #Use the official Node.js 18 image based on Alpine Linux for a lightweight container
 
 WORKDIR /app         #Set the working directory inside the container
 
