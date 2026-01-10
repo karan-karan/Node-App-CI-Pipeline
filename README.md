@@ -1,82 +1,120 @@
-# My Node.js Application
+# Node App CI Pipeline
 
-This is a simple Node.js application that serves a web page indicating that the application is running. The project includes ESLint for code quality enforcement and Jest for testing functionality.
+A simple Node.js application that serves a web page indicating the server is running, with a complete CI/CD pipeline using GitHub Actions and Docker.
+
+## Features
+
+- Simple Express.js web server serving a static HTML page
+- Automated CI/CD pipeline with GitHub Actions
+- Docker containerization with multi-stage build
+- Code linting with ESLint
+- Unit testing with Jest
+- Automated Docker image build and push to Docker Hub
+
+## Prerequisites
+
+- Node.js (version 18 or higher)
+- npm
+- Docker (for containerized deployment)
+- Docker Hub account (for CI/CD pipeline)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/karan-karan/Node-App-CI-Pipeline.git
+   cd Node-App-CI-Pipeline
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+## Usage
+
+### Running Locally
+
+Start the application:
+```bash
+npm start
+```
+
+The server will start on port 3000. Open your browser and navigate to `http://localhost:3000` to see the application running.
+
+### Running with Docker
+
+1. Build the Docker image:
+   ```bash
+   docker build -t node-app .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 3000:3000 node-app
+   ```
+
+3. Access the application at `http://localhost:3000`
+
+## Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run the linter:
+```bash
+npm run lint
+```
+
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment. The pipeline:
+
+1. Triggers on pushes to the `main` branch
+2. Sets up Node.js environment
+3. Installs dependencies
+4. Runs linting and tests
+5. Builds and pushes Docker image to Docker Hub
+
+### Required Secrets
+
+For the CI/CD pipeline to work, you need to set up the following secrets in your GitHub repository:
+
+- `DOCKER_HUB_USERNAME`: Your Docker Hub username
+- `DOCKER_HUB_ACCESS_TOKEN`: Your Docker Hub access token
 
 ## Project Structure
 
 ```
-my-node-app 
-├── public
-│   └── index.html       # HTML file served by the application
-├── src
-│   └── app.js           # Main application file
-├── tests
-│   └── app.test.js      # Test cases for the application
-├── .eslintrc.js         # ESLint configuration file
-├── package.json         # npm configuration file
-├── package-lock.json    # Lockfile for exact dependency versions
-└── README.md            # Project documentation
+.
+├── .github/
+│   └── workflows/
+│       └── docker-Image-CI-Pipeline.yml  # GitHub Actions workflow
+├── public/
+│   └── index.html                        # Static HTML page
+├── src/
+│   └── app.js                            # Main application file
+├── tests/
+│   └── app.test.js                       # Test file
+├── Dockerfile                            # Docker configuration
+├── package.json                          # Node.js dependencies and scripts
+└── README.md                             # This file
 ```
 
-## Key Files Explanation
+## Contributing
 
-### package.json
-Contains project metadata, dependencies, scripts, and configuration for npm.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### package-lock.json
-This file locks the exact versions of all dependencies and their sub-dependencies that were installed. It ensures that:
-- Everyone working on the project gets the same dependency versions
-- Builds are reproducible across different environments
-- npm installs the exact same dependency tree every time
-- It prevents unexpected updates that could break the application
+## License
 
-## Getting Started
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Prerequisites
+## Author
 
-- Node.js (version 14 or higher)
-- npm (Node package manager)
-
-### Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/karan-karan/Basic-Node-App.git
-   cd Basic-Node-App
-   ```
-
-2. Install the dependencies:
-   ```
-   npm install
-   ```
-
-### Running the Application
-
-To start the application, run the following command:
-```
-npm start
-```
-
-You can then access the application in your web browser at `http://localhost:3000`.
-
-### Running Tests
-
-To run the test cases, use the following command:
-```
-npm test
-```
-
-### Linting
-
-To check the code for linting issues, run:
-```
-npm run lint
-```
-
-The ESLint configuration includes:
-- Recommended rules from ESLint
-- Custom rules for indentation (4 spaces), single quotes, and semicolons
-- Jest environment enabled for test files to recognize testing globals
-
-
-<img width="940" height="392" alt="image" src="https://github.com/user-attachments/assets/c7a5adb3-f6d5-4107-b240-db1d4ff86d43" />
+Karan Karan
