@@ -1,25 +1,26 @@
-# Stage 1 — Build the app
-FROM node:18-alpine AS builder
+# Stage 1 — Install dependencies
+FROM node:18-alpine AS deps
 
-# Set working directory
 WORKDIR /app
-
-# copy package files and install dependencies
 COPY package*.json ./
+
+# Install only production deps (much smaller)
 RUN npm ci --omit=dev
 
-# copy source code
+# Stage 2 — Copy source code
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Stage 2 — Run the app (clean image)
+# Stage 3 — Final runtime image
 FROM node:18-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy only node_modules and source code
+# Copy only what is needed
 COPY --from=builder /app ./
 
-# Expose port and start the application
 EXPOSE 3000
 CMD ["npm", "start"]
