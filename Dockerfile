@@ -1,22 +1,25 @@
-# ---------- BUILD STAGE ----------
-FROM node:20-alpine AS builder
-
+# Stage 1 — Install dependencies
+FROM node:18-slim AS deps
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-COPY . .
-
-# ---------- RUNTIME STAGE ----------
-FROM node:20-alpine
-
+# Stage 2 — Copy source code
+FROM node:18-slim AS builder
 WORKDIR /app
 
-# Copy only necessary production files
-COPY --from=builder /app /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-# Expose application port if needed
+# Stage 3 — Final runtime (minimal)
+FROM node:18-slim
+WORKDIR /app
+
+COPY --from=builder /app ./
+
+# Expose the app port
 EXPOSE 3000
 
-CMD ["node", "app.js"]
+# Start correct entrypoint
+CMD ["node", "src/app.js"]
