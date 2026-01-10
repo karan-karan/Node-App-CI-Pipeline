@@ -1,25 +1,25 @@
-# Stage 1 — Install dependencies
-FROM node:18-slim AS deps
+# ---- Stage 1: Build + Install Dependencies ----
+FROM node:18-slim AS build
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
+
+# Install only production dependencies
 RUN npm ci --omit=dev
 
-# Stage 2 — Copy source code
-FROM node:18-slim AS builder
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source code
 COPY . .
 
-# Stage 3 — Final runtime (minimal)
+# ---- Stage 2: Final Runtime Image ----
 FROM node:18-slim
 WORKDIR /app
 
-COPY --from=builder /app ./
+# Copy only what is needed from build stage
+COPY --from=build /app /app
 
-# Expose the app port
+# Expose application port
 EXPOSE 3000
 
-# Start correct entrypoint
+# Start application
 CMD ["node", "src/app.js"]
