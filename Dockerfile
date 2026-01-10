@@ -1,23 +1,22 @@
-# ------------ Stage 1: Build app ------------
-FROM node:18-slim AS builder
+# ---------- BUILD STAGE ----------
+FROM node:20-alpine AS builder
+
 WORKDIR /app
 
-# Install ONLY production dependencies
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Copy app source
 COPY . .
 
-# ------------ Stage 2: Distroless runtime ------------
-FROM gcr.io/distroless/nodejs18
+# ---------- RUNTIME STAGE ----------
+FROM node:20-alpine
+
 WORKDIR /app
 
-# Copy everything from builder
-COPY --from=builder /app ./
+# Copy only necessary production files
+COPY --from=builder /app /app
 
-# Optional metadata
+# Expose application port if needed
 EXPOSE 3000
 
-# Distroless expects the entry script only
-CMD ["app.js"]
+CMD ["node", "app.js"]
