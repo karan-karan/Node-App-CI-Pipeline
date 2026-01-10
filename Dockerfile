@@ -1,20 +1,25 @@
-# Use the official Node.js 18 image based on Alpine Linux for a lightweight container
-FROM node:18-alpine
+# Stage 1 — Build the app
+FROM node:18-alpine AS builder
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# copy package files and install dependencies
 COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
+# copy source code
 COPY . .
 
-# Expose port 3000
-EXPOSE 3000
+# Stage 2 — Run the app (clean image)
+FROM node:18-alpine
 
-# Start the application
+# Set working directory
+WORKDIR /app
+
+# Copy only node_modules and source code
+COPY --from=builder /app ./
+
+# Expose port and start the application
+EXPOSE 3000
 CMD ["npm", "start"]
