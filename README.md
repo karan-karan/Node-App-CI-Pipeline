@@ -102,6 +102,16 @@ For the CI/CD pipeline to work, you need to set up the following secrets in your
 - `DOCKER_HUB_USERNAME`: Your Docker Hub username
 - `DOCKER_HUB_ACCESS_TOKEN`: Your Docker Hub access token
 
+## Issue Faced: Cannot find module '/app/app.js'
+
+**Cause**:
+The Node.js application entry file was located inside the src/ directory (src/app.js), but the Docker container was trying to run /app/app.js, causing the module not found error.
+
+**Resolution**:
+Update the Dockerfile to point to the correct entry path:
+```bash
+CMD ["node", "src/app.js"]
+```
 
 ## Author
 
