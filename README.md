@@ -135,6 +135,28 @@ For the CI/CD pipeline to work, you need to set up the following secrets in your
 - `DOCKER_HUB_USERNAME`: Your Docker Hub username
 - `DOCKER_HUB_ACCESS_TOKEN`: Your Docker Hub access token
 
+## 📌 Difference between `RUN npm install` and `RUN npm ci --omit=dev`
+
+### 🔹 `RUN npm install`
+- Installs dependencies listed in **package.json**.
+- May update or modify **package-lock.json**.
+- Installs both `dependencies` and `devDependencies` (unless omitted manually).
+- Ideal for **local development**, but **not always deterministic** because versions may vary.
+
+### 🔹 `RUN npm ci --omit=dev`
+- `npm ci` = **Clean Install**, designed for **CI/CD pipelines**.
+- Requires and strictly follows **package-lock.json** (no version changes).
+- Removes `node_modules` before installing → clean & reproducible builds.
+- `--omit=dev` ensures **only production dependencies** are installed.
+- Results in **faster, reliable, and consistent** deployments.
+
+### ✅ Summary
+| Command | Use Case | Installs Dev Deps | Lockfile Changed? | Deterministic? |
+|--------|----------|-------------------|--------------------|----------------|
+| `npm install` | Local dev | Yes | Yes | No |
+| `npm ci --omit=dev` | CI/CD, Production | No | No | Yes |
+
+
 ## Issue Faced: Cannot find module '/app/app.js'
 
 **Cause**:
