@@ -12,6 +12,27 @@ The pipeline performs linting, testing, matrix builds, and automatically builds 
 - Unit testing with Jest
 - Automated Docker image build and push to Docker Hub
 
+---
+
+## Project Structure
+
+```
+.
+├── .github/
+│   └── workflows/
+│       └── docker-Image-CI-Pipeline.yml  # GitHub Actions workflow
+├── public/
+│   └── index.html                        # Static HTML page
+├── src/
+│   └── app.js                            # Main application file
+├── tests/
+│   └── app.test.js                       # Test file
+├── Dockerfile                            # Docker configuration
+├── package.json                          # Node.js dependencies and scripts
+└── README.md                             # This file
+```
+---
+
 ## 🚀 CI Pipeline Overview
 
 ### The GitHub Actions workflow includes:
@@ -39,31 +60,6 @@ The Docker job:
 
 ✔ Builds Docker image using **Buildx**  
 ✔ Pushes image with `latest` tag  
-
----
-
-## Project Structure
-
-```
-.
-├── .github/
-│   └── workflows/
-│       └── docker-Image-CI-Pipeline.yml  # GitHub Actions workflow
-├── public/
-│   └── index.html                        # Static HTML page
-├── src/
-│   └── app.js                            # Main application file
-├── tests/
-│   └── app.test.js                       # Test file
-├── Dockerfile                            # Docker configuration
-├── package.json                          # Node.js dependencies and scripts
-└── README.md                             # This file
-```
----
-
-
-
-
 
 ## Prerequisites
 
