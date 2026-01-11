@@ -47,7 +47,7 @@ jobs:
 
   docker-build-and-push:
     name: Build and Push Docker Image
-    needs: build-and-test # ← Multi-stage dependency
+    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
