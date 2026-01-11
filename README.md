@@ -118,7 +118,7 @@ Run the linter:
 npm run lint
 ```
 
-## CI/CD Pipeline
+## CI Pipeline
 
 This project uses GitHub Actions for continuous integration. The pipeline:
 
