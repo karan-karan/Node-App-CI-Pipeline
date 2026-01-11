@@ -1,6 +1,8 @@
 # Node App CI Pipeline
 
-A simple Node.js application that serves a web page indicating the server is running, with a complete CI/CD pipeline using GitHub Actions and Docker.
+This repository contains a simple Node.js application with a **complete CI pipeline** using **GitHub Actions**.  
+The pipeline performs linting, testing, matrix builds, and automatically builds & pushes Docker images to Docker Hub.
+
 
 ## Features
 
@@ -9,6 +11,36 @@ A simple Node.js application that serves a web page indicating the server is run
 - Code linting with ESLint
 - Unit testing with Jest
 - Automated Docker image build and push to Docker Hub
+
+## 🚀 CI Pipeline Overview
+
+### The GitHub Actions workflow includes:
+
+### **1. Matrix Build & Test**
+The app is tested against multiple Node.js versions:
+
+- Node.js 16  
+- Node.js 18  
+- Node.js 20  
+
+### **Steps performed:**
+✔ Install dependencies  
+✔ Run ESLint  
+✔ Run Jest tests  
+✔ Run on multiple Node versions (matrix builds)  
+
+If everything passes, then the next stage starts.
+
+---
+
+### **2. Docker Build & Push (Only if tests succeed)**
+
+The Docker job:
+
+✔ Builds Docker image using **Buildx**  
+✔ Pushes image with `latest` tag  
+
+---
 
 ## Project Structure
 
@@ -27,6 +59,11 @@ A simple Node.js application that serves a web page indicating the server is run
 ├── package.json                          # Node.js dependencies and scripts
 └── README.md                             # This file
 ```
+---
+
+
+
+
 
 ## Prerequisites
 
@@ -87,7 +124,7 @@ npm run lint
 
 ## CI/CD Pipeline
 
-This project uses GitHub Actions for continuous integration and deployment. The pipeline:
+This project uses GitHub Actions for continuous integration. The pipeline:
 
 1. Triggers on pushes to the `main` branch
 2. Sets up Node.js environment
