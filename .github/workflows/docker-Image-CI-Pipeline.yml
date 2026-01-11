@@ -68,4 +68,4 @@ jobs:
       with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node-cipipeline-image:${{ matrix['node-version'] }}-latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node-cipipeline-image:latest
